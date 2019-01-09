@@ -1,10 +1,10 @@
-class PerceptronOr {
+class PerceptronAnd {
 
   int[] entradas;
   float[] pesos;
   float fa = 0.01;
 
-  PerceptronOr(int[] entradas, float[] pesos) {
+  PerceptronAnd(int[] entradas, float[] pesos) {
     this.entradas = entradas;
     this.pesos = pesos;
   }
@@ -41,6 +41,6 @@ class PerceptronOr {
   }
 
   float target() {
-    return entradas[0] == 1 || entradas[1] == 1?1:0;
+    return entradas[0] == 1 && entradas[1] == 1 ? 1:0;
   }
 }
