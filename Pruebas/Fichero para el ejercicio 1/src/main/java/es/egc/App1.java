@@ -16,7 +16,7 @@ public class App1
 	}
 	
 	public static int divide(int a, int b){
-		int result= a*b;
+		int result= a/b;
 		log.info("Returning "+a+"/"+b+"="+result);
 		return result;
 	}
