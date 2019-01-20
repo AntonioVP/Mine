@@ -1,12 +1,12 @@
-class Brain {
+class Red {
 
-  Perceptron p;
+  Neurona p;
   int[] entrada1;
   int[] entrada2;
   int[] salida;
 
 
-  Brain(Perceptron p, String entrada1, String entrada2, String salida) {
+  Red(Neurona p, String entrada1, String entrada2, String salida) {
     this.p = p;
     creaTabla(entrada1, entrada2, salida);
   }

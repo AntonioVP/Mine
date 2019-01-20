@@ -1,10 +1,10 @@
-class Perceptron {
+class Neurona {
 
   float[] pesos;
   int b = 0;
   float fa = 0.01;
 
-  Perceptron(float[] pesos) {
+  Neurona(float[] pesos) {
     this.pesos = pesos;
   }
 

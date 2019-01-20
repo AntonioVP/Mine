@@ -10,8 +10,8 @@ boolean guardado;
 
 float[] pesos = new float[2];
 
-Perceptron p;
-Brain b;
+Neurona p;
+Red b;
 
 int[] entradas  = new int[2];
 
@@ -33,8 +33,8 @@ void setup() {
   String entrada2 = datos[3];
   String salida = datos[4];
 
-  p = new Perceptron(pesos);
-  b = new Brain(p, entrada1, entrada2, salida);
+  p = new Neurona(pesos);
+  b = new Red(p, entrada1, entrada2, salida);
 }
 
 void draw() {
