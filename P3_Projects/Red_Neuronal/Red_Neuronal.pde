@@ -8,10 +8,7 @@ float exito;
 int guardar;
 boolean guardado;
 
-boolean orOrAnd;
-
-float[] pesosOr = new float[2];
-float[] pesosAnd = new float[2];
+float[] pesos = new float[2];
 
 Perceptron p;
 Brain b;
@@ -27,29 +24,17 @@ void setup() {
   guardado = false;
   size(200, 200);
 
-  datos = loadStrings("datos.txt");
+  datos = loadStrings("tabla.txt");
 
-  pesosOr[0] = float(datos[1]); 
-  pesosOr[1] =  float(datos[2]);
+  pesos[0] = float(datos[0]); 
+  pesos[1] =  float(datos[1]);
 
-  pesosAnd[0] = float(datos[4]); 
-  pesosAnd[1] = float(datos[5]);
+  String entrada1 = datos[2];
+  String entrada2 = datos[3];
+  String salida = datos[4];
 
-
-  orOrAnd = true; // FALSE para que aprenda el OR y TRUE para que aprenda el And
-
-
-  if (!orOrAnd) {
-    p = new Perceptron(pesosOr);
-    b = new Brain(p, "OR");
-    println("PRUEBAS PARA EL PERCEPTRON  OR:");
-    println();
-  } else {
-    p = new Perceptron(pesosAnd);
-    b = new Brain(p, "AND");
-    println("PRUEBAS PARA EL PERCEPTRON  AND:");
-    println();
-  }
+  p = new Perceptron(pesos);
+  b = new Brain(p, entrada1, entrada2, salida);
 }
 
 void draw() {
@@ -59,7 +44,7 @@ void draw() {
   }
 
   if (cont == frameCount) {
-    cont += 15;
+    cont += 7;
 
     println("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + b.p.pesos[0] + "  ,  " + b.p.pesos[1]);
     println("Objetivo: " + b.target(entradas) + "           Salida: " + b.p.salida(entradas) + "                         Exito: " + exito*100);
@@ -67,6 +52,7 @@ void draw() {
     println();
   }
 
+  //Contador de aciertos
   if (b.target(entradas) == b.p.salida(entradas)) {
     aciertos += 1;
     guardar++;
@@ -79,19 +65,16 @@ void draw() {
     guardado = false;
   }
 
+  //Se calcula el porcentaje de exito del perceptron
   exito = aciertos / (aciertos + fallos);
 
+  //Segun el contador y el porcentaje de exito, guarda los resultados de los pesos
   if ((exito*100 >= 95 && !guardado) || (guardar == 360 && exito*100 < 95)) {
 
-    if (b.tipo == "OR") {
-      datos[1] = "" + (b.p.pesos[0]);
-      datos[2] = "" + (b.p.pesos[1]);
-    } else {
-      datos[4] = "" + (b.p.pesos[0]);
-      datos[5] = "" + (b.p.pesos[1]);
-    }
+    datos[0] = "" + (b.p.pesos[0]);
+    datos[1] = "" + (b.p.pesos[1]);
 
-    saveStrings("datos.txt", datos);
+    saveStrings("tabla.txt", datos);
 
     guardar = 0;
     guardado = true;

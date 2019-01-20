@@ -19,8 +19,9 @@ class Perceptron {
   }
 
   int salida(int[] entradas) {
-
-    float umbral = 1 / (1 + exp(-1 * sumaEntradas(entradas)));//Math.tanh(sumaEntradas(entradas));
+    
+    //Aqui usamos las funcion activacion para dar el resultado de esta salida.
+    float umbral = 1 / (1 + exp(-1 * sumaEntradas(entradas)));
 
     if (umbral >= 0.75) {
       return 1;
