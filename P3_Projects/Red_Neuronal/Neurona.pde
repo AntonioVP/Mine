@@ -1,7 +1,8 @@
 class Neurona {
 
+  int b = 1;
+  float wb = 1;
   float[] pesos;
-  int b = 0;
   float fa = 0.01;
 
   Neurona(float[] pesos) {
@@ -13,7 +14,7 @@ class Neurona {
     for (int i = 0; i < entradas.length; i++) {
       calculo += entradas[i]*pesos[i];
     }
-    calculo += b;
+    calculo += b*wb;
 
     return calculo;
   }
@@ -34,6 +35,8 @@ class Neurona {
     float out = salida(entradas);
 
     float error = target - out;
+    
+    wb = wb + error*fa;
 
     for (int i = 0; i < pesos.length; i++) {
       pesos[i] = pesos[i] + error*entradas[i]*fa;

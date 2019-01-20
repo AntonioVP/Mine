@@ -1,25 +1,25 @@
 class Red {
 
-  Neurona p;
+  Neurona n;
   int[] entrada1;
   int[] entrada2;
   int[] salida;
 
-
-  Red(Neurona p, String entrada1, String entrada2, String salida) {
-    this.p = p;
+  Red(Neurona n, String entrada1, String entrada2, String salida) {
+    this.n = n;
     creaTabla(entrada1, entrada2, salida);
   }
 
-
+  //Esta funcion entrena a la red 
   void entrena(int[] entradas) {
-    p.aprende(entradas, target(entradas));
+    n.aprende(entradas, target(entradas));
   }
 
+  //Esta funcion muestra la salida correcta
   int target(int[] entradas) {
     int result = 0;
-    for (int i = 0; i < this.entrada1.length; i++){
-      if(entradas[0] == entrada1[i] && entradas[1] == entrada2[i]){
+    for (int i = 0; i < this.entrada1.length; i++) {
+      if (entradas[0] == entrada1[i] && entradas[1] == entrada2[i]) {
         result = i;
         break;
       }
@@ -27,6 +27,7 @@ class Red {
     return salida[result];
   }
 
+  //Crea la tabla de aprendizaje
   void creaTabla(String ent1, String ent2, String sal) {
 
     String[] separado1 = split(ent1, ",");

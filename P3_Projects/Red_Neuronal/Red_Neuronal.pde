@@ -10,8 +10,8 @@ boolean guardado;
 
 float[] pesos = new float[2];
 
-Neurona p;
-Red b;
+Neurona n;
+Red r;
 
 int[] entradas  = new int[2];
 
@@ -33,46 +33,46 @@ void setup() {
   String entrada2 = datos[3];
   String salida = datos[4];
 
-  p = new Neurona(pesos);
-  b = new Red(p, entrada1, entrada2, salida);
+  n = new Neurona(pesos);
+  r = new Red(n, entrada1, entrada2, salida);
 }
 
 void draw() {
 
+  //Inicializo unas entradas aleatorias
   for (int i = 0; i < 2; i++) {
     entradas[i] = (random(1)<0.5? 0: 1);
   }
 
+  //Mostramos por pantalla cada cierto nuemero de frames
   if (cont == frameCount) {
-    cont += 7;
+    cont += 15;
 
-    println("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + b.p.pesos[0] + "  ,  " + b.p.pesos[1]);
-    println("Objetivo: " + b.target(entradas) + "           Salida: " + b.p.salida(entradas) + "                         Exito: " + exito*100);
-
+    println("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + r.n.pesos[0] + "  ,  " + r.n.pesos[1] + "      Peso BIAS: " + r.n.wb);
+    println("Objetivo: " + r.target(entradas) + "           Salida: " + r.n.salida(entradas) + "                                            Exito: " + exito*100);
     println();
   }
 
   //Contador de aciertos
-  if (b.target(entradas) == b.p.salida(entradas)) {
+  if (r.target(entradas) == r.n.salida(entradas)) {
     aciertos += 1;
     guardar++;
   } else {
+    r.entrena(entradas);
+
     fallos += 1;
-
-    b.entrena(entradas);
-
     guardar = 0;
     guardado = false;
   }
 
-  //Se calcula el porcentaje de exito del perceptron
+  //Se calcula el porcentaje de exito de la red
   exito = aciertos / (aciertos + fallos);
 
   //Segun el contador y el porcentaje de exito, guarda los resultados de los pesos
   if ((exito*100 >= 95 && !guardado) || (guardar == 360 && exito*100 < 95)) {
 
-    datos[0] = "" + (b.p.pesos[0]);
-    datos[1] = "" + (b.p.pesos[1]);
+    datos[0] = "" + (r.n.pesos[0]);
+    datos[1] = "" + (r.n.pesos[1]);
 
     saveStrings("tabla.txt", datos);
 
