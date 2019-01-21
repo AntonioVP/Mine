@@ -35,7 +35,7 @@ void setup() {
   String entrada2 = datos[3];
   String salida = datos[4];
 
-  n = new Neurona(pesos);
+  n = new Neurona(pesos, 1);
   r = new Red(n, entrada1, entrada2, salida);
 }
 

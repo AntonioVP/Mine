@@ -1,14 +1,32 @@
 class Red {
 
   Neurona n;
+
+  Capa[] capas;
+
+  //Estas son para la tabla de aprendizaje
   int[] entrada1;
   int[] entrada2;
   int[] salida;
+
 
   Red(Neurona n, String entrada1, String entrada2, String salida) {
     this.n = n;
     creaTabla(entrada1, entrada2, salida);
   }
+
+
+  Red(int[] neuronasPorCapas, int[] entradas) {
+    capas = new Capa[neuronasPorCapas.length];
+    for (int i = 0; i < neuronasPorCapas.length; i++) {
+      if (i == 0) {
+        capas[i] = new Capa(neuronasPorCapas[i], i, entradas.length);
+      } else {
+        capas[i] = new Capa(neuronasPorCapas[i], i, neuronasPorCapas[i-1]);
+      }
+    }
+  }
+
 
   //Esta funcion entrena a la red 
   void entrena(int[] entradas) {
