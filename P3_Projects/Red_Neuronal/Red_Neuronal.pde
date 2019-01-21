@@ -1,4 +1,5 @@
 String[] datos;
+String texto;
 
 float cont;
 float aciertos;
@@ -16,13 +17,14 @@ Red r;
 int[] entradas  = new int[2];
 
 void setup() {
+  size(1200, 300);
+
   cont = 10;
   aciertos = 0;
   fallos = 0;
   exito = 0;
   guardar = 0;
   guardado = false;
-  size(200, 200);
 
   datos = loadStrings("tabla.txt");
 
@@ -39,6 +41,7 @@ void setup() {
 
 void draw() {
 
+
   //Inicializo unas entradas aleatorias
   for (int i = 0; i < 2; i++) {
     entradas[i] = (random(1)<0.5? 0: 1);
@@ -48,9 +51,14 @@ void draw() {
   if (cont == frameCount) {
     cont += 15;
 
-    println("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + r.n.pesos[0] + "  ,  " + r.n.pesos[1] + "      Peso BIAS: " + r.n.wb);
-    println("Objetivo: " + r.target(entradas) + "           Salida: " + r.n.salida(entradas) + "                                            Exito: " + exito*100);
-    println();
+    background(255);
+    fill(0);
+    textSize(16);
+    texto = ("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + r.n.pesos[0] + "  ,  " + r.n.pesos[1] + "      Peso BIAS: " + r.n.wb);
+    text(texto, 10, 50);
+    texto = ("Objetivo: " + r.target(entradas) + "           Salida: " + r.n.salida(entradas) + "                                            Exito: " + exito*100);
+    text(texto, 10, 100);
+    //println();
   }
 
   //Contador de aciertos
@@ -82,6 +90,7 @@ void draw() {
     aciertos = 0;
     fallos = 0;
 
-    println("GUARDADO");
+    texto = ("GUARDADO");
+    text(texto, 10, 150);
   }
 }
