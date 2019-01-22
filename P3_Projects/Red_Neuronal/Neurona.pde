@@ -1,6 +1,6 @@
 class Neurona {
 
-  int b = 1;
+  int b = -1;
   float wb = 1;
   float[] pesos;
   float fa = 0.01;
@@ -9,6 +9,10 @@ class Neurona {
     this.pesos = pesos;
   }
 
+  Neurona(float[] pesos, int bias) {
+    this.pesos = pesos;
+    this.b = bias;
+  }
 
   Neurona(int entradas) {
     float[] w = new float[entradas];
@@ -19,7 +23,7 @@ class Neurona {
   }
 
   //Funcion suma de las entradas segun sus pesos
-  float sumas(int[] entradas) {
+  float in(int[] entradas) {
     float calculo = 0;
     for (int i = 0; i < entradas.length; i++) {
       calculo += entradas[i]*pesos[i];
@@ -29,17 +33,17 @@ class Neurona {
     return calculo;
   }
 
-  //Funcion de activacion sigmoide
-  float f(float suma) {
+  //Funcion de activacion sigmoide.
+  float g(float suma) {
     return 1 / (1 + exp(-1 * suma));
   }
 
-  int salida(int[] entradas) {
+  //Esta funcion devuelve la salida de la neurona segun las entradas y los pesos de las mismas.
+  int a(int[] entradas) {
 
-    //Aqui usamos las funcion activacion para dar el resultado de esta salida.
-    float act = f(sumas(entradas));
+    float sig = g(in(entradas));
 
-    if (act > 0) {
+    if (sig >= 0.5) {
       return 1;
     } else {
       return 0;
@@ -47,7 +51,7 @@ class Neurona {
   }
 
   void aprende(int[] entradas, int target) {
-    float out = salida(entradas);
+    float out = a(entradas);
 
     float error = target - out;
 

@@ -1,34 +1,33 @@
-boolean pressed;
-String letra;
+boolean pressedL;
+boolean pressedR;
+float desp;
+String act;
+String last;
 
 void setup() {
-  size(1200, 300);
+  size(800, 300);
+  ellipseMode(CENTER);
 
-  pressed = false;
-  letra = "Esto es un texto";
+  pressedL = false;
+  pressedR = false;
+  desp = 0;
+  act = "";
+  last = "";
 }
 
 void draw() {
   background(255);
 
   fill(0);
-  textSize(32);
-  text(letra, width/2-5, height/2);
 
-  println(letra);
-}
-
-void keyPressed() {
-
-  if (pressed == false) {
-    letra = key + "";
-    pressed = true;
+  if (keyPressed) {
+    act = key + "";
+    textSize(32);
+    text(act, 50, 50);
   }
 }
 
 void keyReleased() {
-  if (pressed == true) {
-    letra = "";
-    pressed = false;
-  }
+  keyPressed = false;
+  key = ' ';
 }

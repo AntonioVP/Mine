@@ -3,16 +3,18 @@ class Red {
   Neurona n;
 
   Capa[] capas;
+  int[][] results;
+  float fa = 0.01;
 
   //Estas son para la tabla de aprendizaje
-  int[] entrada1;
-  int[] entrada2;
-  int[] salida;
+  int[] tabla1;
+  int[] tabla2;
+  int[] tablaResult;
 
 
-  Red(Neurona n, String entrada1, String entrada2, String salida) {
+  Red(Neurona n, String tabla1, String tabla2, String tablaResult) {
     this.n = n;
-    creaTabla(entrada1, entrada2, salida);
+    creaTabla(tabla1, tabla2, tablaResult);
   }
 
 
@@ -20,29 +22,48 @@ class Red {
     capas = new Capa[neuronasPorCapas.length];
     for (int i = 0; i < neuronasPorCapas.length; i++) {
       if (i == 0) {
-        capas[i] = new Capa(neuronasPorCapas[i], i, entradas.length);
+        capas[i] = new Capa(neuronasPorCapas[i], entradas.length);
       } else {
-        capas[i] = new Capa(neuronasPorCapas[i], i, neuronasPorCapas[i-1]);
+        capas[i] = new Capa(neuronasPorCapas[i], neuronasPorCapas[i-1]);
       }
     }
+  }
+
+
+  //Da el resultado de la red al introducir los valores de entrada
+  int[] a(int[] entradas) {
+    int[] a = entradas;
+    int[] _a;
+
+    for (int i = 0; i < capas.length; i++) {
+      _a = capas[i].a(a);
+
+      a = _a;
+    }
+
+    return a;
   }
 
 
   //Esta funcion entrena a la red 
   void entrena(int[] entradas) {
     n.aprende(entradas, target(entradas));
+
+    for (int i = 0; i < capas.length; i++) {
+    }
   }
 
-  //Esta funcion muestra la salida correcta
+
+  //Esta funcion muestra la salida correcta segun la tabla de aprendizaje (¿mover a otra clase la tabla (clae Brain)?)
   int target(int[] entradas) {
     int result = 0;
-    for (int i = 0; i < this.entrada1.length; i++) {
-      if (entradas[0] == entrada1[i] && entradas[1] == entrada2[i]) {
+    for (int i = 0; i < this.tabla1.length; i++) {
+      if (entradas[0] == tabla1[i] && entradas[1] == tabla2[i]) {
         result = i;
         break;
       }
     }
-    return salida[result];
+    return tablaResult[result];
   }
 
   //Crea la tabla de aprendizaje
@@ -52,14 +73,14 @@ class Red {
     String[] separado2 = split(ent2, ",");
     String[] separado3 = split(sal, ",");
 
-    this.entrada1 = new int[separado1.length];
-    this.entrada2 = new int[separado2.length];
-    this.salida = new int[separado3.length];
+    this.tabla1 = new int[separado1.length];
+    this.tabla2 = new int[separado2.length];
+    this.tablaResult = new int[separado3.length];
 
     for (int i = 0; i < separado1.length; i++) {
-      this.entrada1[i] = int(separado1[i]);
-      this.entrada2[i] = int(separado2[i]);
-      this.salida[i] = int(separado3[i]);
+      this.tabla1[i] = int(separado1[i]);
+      this.tabla2[i] = int(separado2[i]);
+      this.tablaResult[i] = int(separado3[i]);
     }
   }
 }

@@ -56,13 +56,13 @@ void draw() {
     textSize(16);
     texto = ("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + r.n.pesos[0] + "  ,  " + r.n.pesos[1] + "      Peso BIAS: " + r.n.wb);
     text(texto, 10, 50);
-    texto = ("Objetivo: " + r.target(entradas) + "           Salida: " + r.n.salida(entradas) + "                                            Exito: " + exito*100);
+    texto = ("Objetivo: " + r.target(entradas) + "           Salida: " + r.n.a(entradas) + "                                            Exito: " + exito*100);
     text(texto, 10, 100);
     //println();
   }
 
   //Contador de aciertos
-  if (r.target(entradas) == r.n.salida(entradas)) {
+  if (r.target(entradas) == r.n.a(entradas)) {
     aciertos += 1;
     guardar++;
   } else {
