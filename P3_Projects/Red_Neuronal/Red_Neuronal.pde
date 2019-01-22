@@ -1,4 +1,6 @@
-String[] datos;
+String[] xBrain;
+String[] yBrain;
+
 String texto;
 
 float cont;
@@ -26,17 +28,8 @@ void setup() {
   guardar = 0;
   guardado = false;
 
-  datos = loadStrings("tabla.txt");
-
-  pesos[0] = float(datos[0]); 
-  pesos[1] =  float(datos[1]);
-
-  String entrada1 = datos[2];
-  String entrada2 = datos[3];
-  String salida = datos[4];
-
-  n = new Neurona(pesos, 1);
-  r = new Red(n, entrada1, entrada2, salida);
+  xBrain = loadStrings("listX.txt");
+  yBrain = loadStrings("listY.txt");
 }
 
 void draw() {

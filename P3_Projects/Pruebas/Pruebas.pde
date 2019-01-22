@@ -1,33 +1,20 @@
-boolean pressedL;
-boolean pressedR;
-float desp;
-String act;
-String last;
+int[][] tabla;
+int[] array1 = {2, 2, 2};
+int[] array2 = {4, 4};
 
 void setup() {
-  size(800, 300);
-  ellipseMode(CENTER);
+  tabla = new int[3][2];
 
-  pressedL = false;
-  pressedR = false;
-  desp = 0;
-  act = "";
-  last = "";
-}
+  tabla[0] = array1;
+  tabla[1] = array2;
 
-void draw() {
-  background(255);
-
-  fill(0);
-
-  if (keyPressed) {
-    act = key + "";
-    textSize(32);
-    text(act, 50, 50);
+  for (int i = 0; i < tabla.length; i++) {
+    for (int j = 0; j < tabla[i].length; j++) {
+      print(tabla[i][j] + "     ");
+    }
+    println();
   }
 }
 
-void keyReleased() {
-  keyPressed = false;
-  key = ' ';
+void draw() {
 }

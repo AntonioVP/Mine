@@ -1,27 +1,27 @@
 class Capa {
 
   Neurona[] n;
-  int[] result;
+  int[] results;
 
-  Capa(int tam, int entradas) {
-    this.n = new Neurona[tam];
-    this.result = new int[tam];
-    inicializaNeuronas(entradas);
+  Capa(int len, int x) {
+    this.n = new Neurona[len];
+    this.results = new int[len];
+    createNeurons(x);
   }
 
-  
-  int[] a(int[] entradas){
+  //Resultados de la capa con las entradas proporcionadas
+  int[] a(int[] x){
     
     for(int i = 0; i < this.n.length; i++){
-      this.result[i] = n[i].a(entradas);
+      this.results[i] = n[i].a(x);
     }
     
-    return this.result;
+    return this.results;
   }
   
-  void inicializaNeuronas(int entradas) {
+  void createNeurons(int x) {
     for (int i = 0; i < this.n.length; i++) {
-      n[i] = new Neurona(entradas);
+      n[i] = new Neurona(x);
     }
   }
 }
