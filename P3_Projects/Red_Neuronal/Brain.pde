@@ -9,6 +9,17 @@ class Brain {
     createXandY(x, y);
   }
 
+  int[] output(int[] input) {
+    int[] result = {-1};
+
+    for (int i = 0; i < input.length; i++) {
+      if (x[i] == input) {
+        result = y[i];
+      }
+    }
+
+    return result;
+  }
 
   void train(Red r) {
     int[] in = new int[x[0].length];
@@ -38,7 +49,7 @@ class Brain {
     this.y = new int[yList.length][1];
 
     for (int i = 0; i < yList.length; i++) {
-      this.y[i][1] = int(yList[i]);
+      this.y[i][0] = int(yList[i]);
     }
   }
 }

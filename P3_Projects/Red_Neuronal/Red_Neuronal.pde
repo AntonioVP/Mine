@@ -1,6 +1,3 @@
-String[] xBrain;
-String[] yBrain;
-
 String texto;
 
 float cont;
@@ -11,12 +8,16 @@ float exito;
 int guardar;
 boolean guardado;
 
-float[] pesos = new float[2];
 
-Neurona n;
+String[] xBrain;
+String[] yBrain;
+Brain b;
+
+int len;
+int[] neuFL = {2,1};
 Red r;
 
-int[] entradas  = new int[2];
+int[] x = new int[2];
 
 void setup() {
   size(1200, 300);
@@ -29,37 +30,42 @@ void setup() {
   guardado = false;
 
   xBrain = loadStrings("listX.txt");
-  yBrain = loadStrings("listY.txt");
+  yBrain = loadStrings("listY.txtklp");
+  b = new Brain(xBrain, yBrain);
+
+  len = b.x[0].length;
+  r = new Red(neuFL,len);
 }
 
 void draw() {
 
-
   //Inicializo unas entradas aleatorias
   for (int i = 0; i < 2; i++) {
-    entradas[i] = (random(1)<0.5? 0: 1);
+    x[i] = (random(1)<0.5? 0: 1);
   }
 
-  //Mostramos por pantalla cada cierto nuemero de frames
+  //Mostramos por pantalla cada cierto numero de frames
   if (cont == frameCount) {
     cont += 15;
 
     background(255);
     fill(0);
     textSize(16);
-    texto = ("Entradas: " + entradas[0] + " , " + entradas[1] + "        Pesos: " + r.n.pesos[0] + "  ,  " + r.n.pesos[1] + "      Peso BIAS: " + r.n.wb);
+    texto = ("Entradas: " + x[0] + " , " + x[1]);
     text(texto, 10, 50);
-    texto = ("Objetivo: " + r.target(entradas) + "           Salida: " + r.n.a(entradas) + "                                            Exito: " + exito*100);
+    texto = ("Objetivo: " + b.output(x) + "           Salida: " + r.a(x) + "                                            Exito: " + exito*100);
     text(texto, 10, 100);
-    //println();
   }
 
+
+  //A partir de aqui tengo que actualizarlo todo al nuevo sistema de creacion de redes.
+
   //Contador de aciertos
-  if (r.target(entradas) == r.n.a(entradas)) {
+  if (r.a(x) == b.output(x)) {
     aciertos += 1;
     guardar++;
   } else {
-    r.entrena(entradas);
+    r.entrena(x);
 
     fallos += 1;
     guardar = 0;

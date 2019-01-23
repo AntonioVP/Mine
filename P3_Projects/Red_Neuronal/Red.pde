@@ -4,15 +4,15 @@ class Red {
 
   Capa[] layers;
   int[][] results;
-  float fa = 0.01;
+  float lr = 0.01; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
 
 
-  Red(int[] neuForLayer, int[] x) {
+  Red(int[] neuForLayer, int xForNeu) {
     layers = new Capa[neuForLayer.length];
     
     for (int i = 0; i < neuForLayer.length; i++) {
       if (i == 0) {
-        layers[i] = new Capa(neuForLayer[i], x.length);
+        layers[i] = new Capa(neuForLayer[i], xForNeu);
       } else {
         layers[i] = new Capa(neuForLayer[i], neuForLayer[i-1]);
       }

@@ -18,9 +18,11 @@ class Neurona {
   //Funcion suma de las entradas segun sus pesos
   float in(int[] x) {
     float in = 0;
+    
     for (int i = 0; i < x.length; i++) {
       in += x[i]*w[i];
     }
+    
     in += b*wb;
 
     return in;
@@ -42,6 +44,7 @@ class Neurona {
       return 0;
     }
   }
+
 
   //TODO: Re hacer el metodo de aprendizaje de la neurona
   void train(int[] x, int target) {
