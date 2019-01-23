@@ -16,7 +16,7 @@ class Neurona {
   }
 
   //Funcion suma de las entradas segun sus pesos
-  float in(int[] x) {
+  float in(float[] x) {
     float in = 0;
     
     for (int i = 0; i < x.length; i++) {
@@ -34,7 +34,7 @@ class Neurona {
   }
 
   //Esta funcion devuelve la salida de la neurona segun las entradas y los pesos de las mismas.
-  float a(int[] x) {
+  float a(float[] x) {
 
     float sig = g(in(x));
 

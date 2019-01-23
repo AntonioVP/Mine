@@ -1,11 +1,11 @@
 class Capa {
 
   Neurona[] n;
-  int[] results;
+  float[] results;
 
   Capa(int len, int x) {
     this.n = new Neurona[len];
-    this.results = new int[len];
+    this.results = new float[len];
 
     for (int i = 0; i < this.n.length; i++) {
       n[i] = new Neurona(x);
@@ -13,7 +13,7 @@ class Capa {
   }
 
   //Resultados de la capa con las entradas proporcionadas
-  int[] a(int[] x) {
+  float[] a(float[] x) {
 
     for (int i = 0; i < this.n.length; i++) {
       this.results[i] = n[i].a(x);
@@ -24,6 +24,6 @@ class Capa {
 
 
   //TODO: Esta funcion entrena a la capa
-  void train(int[] x, int[] y) {
+  void train(float[] x, float[] y) {
   }
 }
