@@ -34,15 +34,11 @@ class Neurona {
   }
 
   //Esta funcion devuelve la salida de la neurona segun las entradas y los pesos de las mismas.
-  int a(int[] x) {
+  float a(int[] x) {
 
     float sig = g(in(x));
 
-    if (sig >= 0.5) {
-      return 1;
-    } else {
-      return 0;
-    }
+    return sig;
   }
 
 

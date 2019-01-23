@@ -8,7 +8,7 @@ float exito;
 int guardar;
 boolean guardado;
 
-
+//Inilizacion de la variables para la red neuronal
 String[] xBrain;
 String[] yBrain;
 Brain b;

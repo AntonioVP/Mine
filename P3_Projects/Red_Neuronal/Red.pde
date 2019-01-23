@@ -27,7 +27,7 @@ class Red {
 
     for (int i = 0; i < layers.length; i++) {
       _a = layers[i].a(a);
-      
+     
       results[i] = _a;
       
       a = _a;
@@ -39,5 +39,9 @@ class Red {
 
   //TODO: Esta funcion entrena a la red 
   void train(int[] x, int[] y) {
+     
+    for (int i = 0; i < layers.length; i++){
+      layers[layers.length-(i+1)].train(,);
+    }
   }
 }
