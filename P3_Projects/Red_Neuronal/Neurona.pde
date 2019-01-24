@@ -15,34 +15,31 @@ class Neurona {
     this.w = w;
   }
 
-  //Funcion suma de las entradas segun sus pesos
+  //Funcion suma de las entradas segun sus pesos.
   float in(float[] x) {
     float in = 0;
-    
+
     for (int i = 0; i < x.length; i++) {
       in += x[i]*w[i];
     }
-    
+
     in += b*wb;
 
-    return in;
+    return in; //<>//
   }
 
-  //Funcion de activacion sigmoide. La derivada de la funcion sigmoide es:   g'(in) = g(in)*(1 - g(in))
+
+  //Funcion de activacion sigmoide. La derivada de la funcion sigmoide es:   g'(in) = g(in)*(1 - g(in)).
   float g(float in) {
     return 1 / (1 + exp(-1 * in));
   }
 
-  //Esta funcion devuelve la salida de la neurona segun las entradas y los pesos de las mismas.
+
+  //Esta funcion devuelve la salida de la neurona.
   float a(float[] x) {
 
     float sig = g(in(x));
 
     return sig;
-  }
-
-
-  //TODO: Re hacer el metodo de aprendizaje de la neurona
-  void train(int[] x, int target) {
   }
 }

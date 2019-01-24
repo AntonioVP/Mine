@@ -21,9 +21,4 @@ class Capa {
 
     return this.results;
   }
-
-
-  //TODO: Esta funcion entrena a la capa
-  void train(float[] x, float[] y) {
-  }
 }

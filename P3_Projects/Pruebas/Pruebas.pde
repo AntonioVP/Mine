@@ -1,6 +1,6 @@
 int[][] tabla;
 int[] array1 = {2, 2, 2};
-int[] array2 = {4, 4};
+int[] array2 = {2, 2, 2};
 
 void setup() {
   tabla = new int[3][2];
@@ -8,12 +8,7 @@ void setup() {
   tabla[0] = array1;
   tabla[1] = array2;
 
-  for (int i = 0; i < tabla.length; i++) {
-    for (int j = 0; j < tabla[i].length; j++) {
-      print(tabla[i][j] + "     ");
-    }
-    println();
-  }
+  println(array1[0] == array2[0]);
 }
 
 void draw() {
