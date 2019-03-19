@@ -25,13 +25,13 @@ class Neurona {
 
     in += b*wb;
 
-    return in; //<>//
+    return in;
   }
 
 
   //Funcion de activacion sigmoide. La derivada de la funcion sigmoide es:   g'(in) = g(in)*(1 - g(in)).
   float g(float in) {
-    return 1 / (1 + exp(-1 * in));
+    return 1.0 / (1.0 + exp(-1.0 * in));
   }
 
 

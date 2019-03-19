@@ -1,4 +1,4 @@
-class Brain {
+class Brain { //<>// //<>// //<>// //<>//
 
   float[][] x;
   float[][] y;
@@ -58,21 +58,24 @@ class Brain {
   void train(Red r) {
     float error = 1;
 
-    //Aqui hacer entrenamiento hasta que el error sea menor que 0.01.
-    while (error > 0.0001) { //<>//
+    //Aqui hacer entrenamiento hasta que el error sea menor que 0.0001.
+    while (error > 0.0001) {
 
       //Empezamos a entrenar la red con cada valor de la tabla de entrenamiento.
       for (int i = 0; i < x.length; i++) {
 
-        //Obtenemos los errores de cada salida de la red.
+        //Obtenemos los errores de la red.
         r.a(x[i]);
         getErrors(r, this.y[i]);
 
-        //Entrenamos la red con la entrada y salida esperada y con los errores calculados.
+        //Entrenamos la red con los errores calculados.
         r.train(errors);
       }
 
-      error = abs(errors[errors.length - 1][0]); //<>//
+      error = abs(errors[errors.length - 1][0]);
+
+      println("El error ahora es de " + error);
+      println(); //<>//
     }
   }
 
@@ -84,9 +87,9 @@ class Brain {
     for (int i = 0; i < errors.length; i++) {
 
       // l sera la capa donde nos encontramos actualmente
-      int l = errors.length - (i+1);
+      int l = this.errors.length - (i+1);
 
-      for (int j = 0; j < errors[l].length; j++) {
+      for (int j = 0; j < this.errors[l].length; j++) {
 
         float a = r.results[l][j];
 

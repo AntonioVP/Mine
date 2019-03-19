@@ -1,4 +1,4 @@
-class Red { //<>// //<>//
+class Red {
 
   Capa[] layers;
   float[][] results;
@@ -52,8 +52,10 @@ class Red { //<>// //<>//
 
         //Actualizamos el peso del bias.
         //     WB         =          WB       +  lr * B * ERROR
-        layers[l].n[j].wb = layers[l].n[j].wb + -1*lr*errors[l][j]; //<>//
-
+        layers[l].n[j].wb = layers[l].n[j].wb + -1*lr*errors[l][j];
+        println();
+        println("El peso del Bias de la capa " + l + " en la neurona " + j + " es de " + layers[l].n[j].wb); //<>//
+        
         //Numero de pesos de las entradas de la neurona actual
         int numW = layers[l].n[j].w.length;
 
@@ -61,7 +63,9 @@ class Red { //<>// //<>//
         for (int k = 0; k < numW; k++) {
 
           //       Wk         =         Wk          +  lr *  aj  * ERRORj
-          layers[l].n[j].w[k] = layers[l].n[j].w[k] + lr*results[l][j] * errors[l][j]; //<>//
+          layers[l].n[j].w[k] = layers[l].n[j].w[k] + lr*results[l][j] * errors[l][j];
+          
+          println("El peso de la entrada " + k + " de la neurona " + j + " de la capa " + l + " es de " + layers[l].n[j].w[k]); //<>//
         }
       }
     }

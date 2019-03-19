@@ -14,7 +14,7 @@ String[] yBrain;
 Brain b;
 
 int len;
-int[] neuFL = {2, 1};
+int[] neuFL = {1};
 Red r;
 
 float[] x = new float[2];
@@ -44,10 +44,8 @@ void setup() {
 
 void draw() {
 
-
-
   //Inicializo unas entradas aleatorias
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 2; i++) { //<>//
     x[i] = (random(1)<0.5? 0: 1);
   }
 
