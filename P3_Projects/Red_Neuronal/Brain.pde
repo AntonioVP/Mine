@@ -58,8 +58,8 @@ class Brain { //<>// //<>// //<>// //<>//
   void train(Red r) {
     float error = 1;
 
-    //Aqui hacer entrenamiento hasta que el error sea menor que 0.0001.
-    while (error > 0.0001) {
+    //Aqui hacer entrenamiento hasta que el error sea menor que 0.001.
+    while (error > 0.001) {
 
       //Empezamos a entrenar la red con cada valor de la tabla de entrenamiento.
       for (int i = 0; i < x.length; i++) {
@@ -69,13 +69,13 @@ class Brain { //<>// //<>// //<>// //<>//
         getErrors(r, this.y[i]);
 
         //Entrenamos la red con los errores calculados.
-        r.train(errors);
+        r.learn(errors); //<>//
       }
 
       error = abs(errors[errors.length - 1][0]);
 
       println("El error ahora es de " + error);
-      println(); //<>//
+      println();
     }
   }
 
@@ -89,12 +89,12 @@ class Brain { //<>// //<>// //<>// //<>//
       // l sera la capa donde nos encontramos actualmente
       int l = this.errors.length - (i+1);
 
-      for (int j = 0; j < this.errors[l].length; j++) {
+      for (int j = 0; j < this.errors[l].length; j++) { //<>//
 
         float a = r.results[l][j];
 
         if (i == 0) {
-          this.errors[l][j] = a*(1.0 - a)*(y[j] - a);
+          this.errors[l][j] = a*(1.0 - a)*(y[j] - a); //<>//
         } else {
           //Para cada neurona de la capa siguiente a la actual
           float sum = 0.0;
