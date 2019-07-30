@@ -15,7 +15,7 @@ Brain b;
 
 int len;
 int[] neuFL = {1};
-Red r;
+Net r;
 
 float[] x = new float[2];
 
@@ -36,7 +36,7 @@ void setup() {
 
   //Creamos la red con los parametros que deseamos.
   len = b.x[0].length;
-  r = new Red(neuFL, len);
+  r = new Net(neuFL, len);
 
   //Entrenamos la red.
   b.train(r);

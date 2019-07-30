@@ -1,4 +1,4 @@
-class Brain { //<>// //<>// //<>// //<>//
+class Brain { //<>// //<>// //<>// //<>// //<>//
 
   float[][] x;
   float[][] y;
@@ -55,7 +55,7 @@ class Brain { //<>// //<>// //<>// //<>//
 
 
   //Entrena la red con la tabla de entrenamiento que tiene Brain.
-  void train(Red r) {
+  void train(Net r) {
     float error = 1;
 
     //Aqui hacer entrenamiento hasta que el error sea menor que 0.001.
@@ -65,11 +65,11 @@ class Brain { //<>// //<>// //<>// //<>//
       for (int i = 0; i < x.length; i++) {
 
         //Obtenemos los errores de la red.
-        r.a(x[i]);
-        getErrors(r, this.y[i]);
+        r.a(x[i]); //<>//
+        setErrors(r, this.y[i]); //<>//
 
         //Entrenamos la red con los errores calculados.
-        r.learn(errors); //<>//
+        r.learn(); //<>//
       }
 
       error = abs(errors[errors.length - 1][0]);
@@ -80,21 +80,23 @@ class Brain { //<>// //<>// //<>// //<>//
   }
 
   //Aqui obtenemos los errores de la red neuronal r con las entradas x para la salida esperada y.
-  private void getErrors(Red r, float[] y) {
+  private void setErrors(Net r, float[] y) {
 
-    this.errors = r.results;
+    this.errors = r.getResults();
 
     for (int i = 0; i < errors.length; i++) {
 
       // l sera la capa donde nos encontramos actualmente
       int l = this.errors.length - (i+1);
 
-      for (int j = 0; j < this.errors[l].length; j++) { //<>//
+      // j sera la neurona en la que nos encontramos actualmente
+      for (int j = 0; j < this.errors[l].length; j++) {
 
-        float a = r.results[l][j];
+        float a =  r.getResults()[l][j];
 
         if (i == 0) {
-          this.errors[l][j] = a*(1.0 - a)*(y[j] - a); //<>//
+          this.errors[l][j] = a*(1.0 - a)*(y[j] - a);
+          r.layers[l].n[j].outputError = this.errors[l][j];
         } else {
           //Para cada neurona de la capa siguiente a la actual
           float sum = 0.0;
@@ -105,7 +107,8 @@ class Brain { //<>// //<>// //<>// //<>//
             sum += r.layers[l+1].n[k].w[j] * errors[l+1][k];
           }
 
-          this.errors[l][i] = a*(1.0 - a)*(sum);
+          this.errors[l][j] = a*(1.0 - a)*(sum);
+          r.layers[l].n[j].outputError = this.errors[l][i];
         }
       }
     }
