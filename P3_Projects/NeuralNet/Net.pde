@@ -2,10 +2,10 @@ class Net {
 
   Layer[] layers;
   float[][] results;
-  float lr = 0.01; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
+  float lr = 0.1; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
 
 
-  Net(int[] neuForLayer, int xForNeu) {
+  public Net(int[] neuForLayer, int xForNeu) {
     this.layers = new Layer[neuForLayer.length];
     int max = 1;
 
@@ -26,28 +26,32 @@ class Net {
 
 
   //Da el resultado de la red al introducir los valores de entrada
-  float[] a(float[] x) {
-    float[] a = x;
-    float[] _a;
+  public float[] a(float[] x) {
+    float[] in = x;
+    float[] a;
 
     for (int i = 0; i < layers.length; i++) {
-      _a = this.layers[i].a(a);
+      a = this.layers[i].a(in);
 
       this.results[i] = this.layers[i].getResults();
 
-      a = _a;
+      in = a;
     }
 
-    return a;
+    return in;
   }
 
 
-  void learn() {
+  public void learn(float[] x) {
 
-    //Para cada capa aprendemos
+    //Para cada capa aprendemos con los resultados de la capa anterior
     for (int i = 0; i < layers.length; i++) {
 
-      layers[i].learn(i);
+      if (i == 0) {
+        layers[i].learn(x);
+      } else {
+        layers[i].learn(layers[i-1].getResults());
+      }
     }
   }
 
@@ -55,12 +59,7 @@ class Net {
 
     float[][] copy = new float[results.length][results[0].length];
 
-    for (int i = 0; i < results.length; i++) {
-
-      for (int j = 0; j < results[0].length; j++) {
-        copy[i][j] = results[i][j];
-      }
-    }
+    arrayCopy(results, copy);
 
     return copy;
   }

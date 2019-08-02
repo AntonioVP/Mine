@@ -2,9 +2,9 @@ class Layer {
 
   Neuron[] n;
   float[] results;
-  float lr = 0.01;
+  float lr = 0.1;
 
-  Layer(int len, int x) {
+  public Layer(int len, int x) {
     this.n = new Neuron[len];
     this.results = new float[len];
 
@@ -14,7 +14,7 @@ class Layer {
   }
 
   //Resultados de la capa con las entradas proporcionadas
-  float[] a(float[] x) {
+  public float[] a(float[] x) {
 
     for (int i = 0; i < this.n.length; i++) {
       this.results[i] = n[i].a(x);
@@ -23,7 +23,7 @@ class Layer {
     return this.results;
   }
 
-  float[] errors() {
+  public float[] errors() {
     float[] result = new float[this.n.length];
 
     for (int i = 0; i < result.length; i++) {
@@ -37,20 +37,17 @@ class Layer {
 
     float[] copy = new float[this.results.length];
 
-    for (int i = 0; i < results.length; i++) {
-
-      copy[i] = results[i];
-    }
+    arrayCopy(results, copy);
 
     return copy;
   }
   
-  public void learn(int l){
+  public void learn(float[] res){
     
-    //Para cada neurona
+    //Para cada neurona le pasamos los resultados de la capa anterior
     for (int j = 0; j < this.n.length; j++) {
 
-        this.n[j].learn(l, j, results[j]);
+        this.n[j].learn(res);
       }
   }
 }

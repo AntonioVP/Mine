@@ -1,4 +1,4 @@
-class Brain { //<>// //<>// //<>// //<>// //<>//
+class Brain {
 
   float[][] x;
   float[][] y;
@@ -11,7 +11,7 @@ class Brain { //<>// //<>// //<>// //<>// //<>//
 
 
   //Crea la tabla de entrenamiento segun los archivos cargados.
-  void createXandY(String[] xList, String[] yList) {
+  private void createXandY(String[] xList, String[] yList) {
     String[] atri = split(xList[0], ',');
 
     this.x = new float[xList.length][atri.length];
@@ -32,7 +32,7 @@ class Brain { //<>// //<>// //<>// //<>// //<>//
 
 
   //Busca en la tabla el resultado de la entrada input.
-  float[] output(float[] input) {
+  public float[] output(float[] input) {
     float[] result = {-1};
 
     for (int i = 0; i < this.x.length; i++) {
@@ -55,27 +55,25 @@ class Brain { //<>// //<>// //<>// //<>// //<>//
 
 
   //Entrena la red con la tabla de entrenamiento que tiene Brain.
-  void train(Net r) {
+  public void train(Net r) {
     float error = 1;
 
-    //Aqui hacer entrenamiento hasta que el error sea menor que 0.001.
     while (error > 0.001) {
 
-      //Empezamos a entrenar la red con cada valor de la tabla de entrenamiento.
+      //Entrenamos la red con la tabla de entrenamiento.
       for (int i = 0; i < x.length; i++) {
 
-        //Obtenemos los errores de la red.
+        //Calculamos la salida de cada unidad y vamos propagando hacia adelante.
         r.a(x[i]); //<>//
-        setErrors(r, this.y[i]); //<>//
+        
+        //Calculamos los errores de la red.
+        this.setErrors(r, this.y[i]); //<>//
 
-        //Entrenamos la red con los errores calculados.
-        r.learn(); //<>//
+        //Actualizamos los pesos propagando los valores hacia detras.
+        r.learn(x[i]); //<>//
       }
 
-      error = abs(errors[errors.length - 1][0]);
-
-      println("El error ahora es de " + error);
-      println();
+      error = abs(this.errors[this.errors.length - 1][0]); //<>//
     }
   }
 
@@ -96,15 +94,15 @@ class Brain { //<>// //<>// //<>// //<>// //<>//
 
         if (i == 0) {
           this.errors[l][j] = a*(1.0 - a)*(y[j] - a);
-          r.layers[l].n[j].outputError = this.errors[l][j];
+          r.layers[l].n[j].outputError = this.errors[l][j]; //<>//
         } else {
-          //Para cada neurona de la capa siguiente a la actual
+          //Para cada neurona desde la penultima a la primera
           float sum = 0.0;
 
-          //Hacemos el sumatorio de los pesos que van de la neurona actual J por el error de cada neurona de la capa K donde K es l+1.
+          //Hacemos el sumatorio de los pesos relacionados con la neurona actual J con la capa de un nivel mayor (K donde K es l+1) por el error de las neuronas de K
           // Sum(wjk * error(k))
           for (int k = 0; k < r.layers[l+1].n.length; k++) {
-            sum += r.layers[l+1].n[k].w[j] * errors[l+1][k];
+            sum += r.layers[l+1].n[k].w[j] * this.errors[l+1][k];
           }
 
           this.errors[l][j] = a*(1.0 - a)*(sum);
