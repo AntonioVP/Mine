@@ -2,7 +2,8 @@ class Net {
 
   Layer[] layers;
   float[][] results;
-  float lr = 0.05; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
+
+  float lr = 0.01; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
 
 
   public Net(int[] neuForLayer, int xForNeu) {

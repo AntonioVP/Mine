@@ -4,7 +4,8 @@ class Neuron {
   float wb;
 
   float[] w;
-  float lr = 0.05;
+
+  float lr = 0.01;
 
   float outputError = 0.0;
 
