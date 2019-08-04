@@ -4,7 +4,7 @@ class Neuron {
   float wb;
 
   float[] w;
-  float lr = 0.1;
+  float lr = 0.01;
 
   float outputError = 0.0;
 
@@ -42,7 +42,7 @@ class Neuron {
 
     float sig = this.g(this.in(x));
 
-    return sig; //<>//
+    return sig;
   }
 
   public void learn(float[] res) {
