@@ -2,7 +2,7 @@ class Layer {
 
   Neuron[] n;
   float[] results;
-  float lr = 0.1;
+  float lr = 0.05;
 
   public Layer(int len, int x) {
     this.n = new Neuron[len];

@@ -2,7 +2,7 @@ class Net {
 
   Layer[] layers;
   float[][] results;
-  float lr = 0.1; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
+  float lr = 0.05; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
 
 
   public Net(int[] neuForLayer, int xForNeu) {
@@ -48,9 +48,9 @@ class Net {
     for (int i = 0; i < layers.length; i++) {
 
       if (i == 0) {
-        layers[i].learn(x);
+        this.layers[i].learn(x);
       } else {
-        layers[i].learn(layers[i-1].getResults());
+        this.layers[i].learn(layers[i-1].getResults());
       }
     }
   }
