@@ -1,0 +1,27 @@
+Apuntes sobre redes neuronales:
+
+-En la capa oculta no debe haber más neuronas al doble de entradas:
+	NºNeuronas <= 2 * NºEntradas
+
+-El número de ejemplos de entrenamiento debe ser de al menos 1 / error  veces como pesos tenga la red:
+	NºEjemplos = NºDePesos * 1 / (error mínimo de la red)
+
+-La generalización aumenta con la disminución del número de neuronas en la capa oculta.
+
+-La precisión aumenta con el aumento del numero de neuronas en la capa oculta.
+
+-Entre mayor sea la red, mayor es el tiempo de entrenamiento.
+
+-No existe razón teórica para usar más dos capas ocultas, la mayoría de los problemas PRACTICOS se resuelven con una sola capa.
+
+-Si se usa una gran cantidad de neuronas en la capa oculta y no se soluciona el problema satisfactoriamente entonces se deberá usar una segunda capa reduciendo el numero de neuronas en cada capa (oculta, es decir, si usamos 100 neuronas en la primera y decidimos poner una segunda capa, probaremos a poner 50 en cada capa, creo).
+
+-Para una red de tres capas (de entrada, oculta y de salida) el numero inicial de neuronas de la capa oculta será la raíz del número de neuronas de salida por el numero de neuronas de entrada:
+	NºNeuronasOcultas  =  sqrt ( NºEntradas * NºSalidas )
+
+-Para redes con dos capas ocultas:
+	r = raíz_cubica ( NºEntradas / NºSalidas )
+	NºOcultas1 =  NºSalidas  *  r^2
+	NºOcultas2 =  NºSalidas  *  r
+
+-Lo anteriormente mencionado en las formulas son aproximaciones, puede que una red de una entrada y una salida necesite una docena de neuronas ocultas para poder resolver el sistema.
