@@ -1,58 +1,89 @@
 class Net {
 
-  Layer[] layers;
+  LayerIn layerIn;
+  LayerHi[] layerHi;
+  LayerOut layerOut;
   float[][] results;
 
-  float lr = 0.08; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
+  float lr = 0.1; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
 
 
-  public Net(int[] neuForLayer, int xForNeu) {
-    this.layers = new Layer[neuForLayer.length];
-    int max = 1;
 
-    for (int i = 0; i < neuForLayer.length; i++) {
-      if (i == 0) {
-        this.layers[i] = new Layer(neuForLayer[i], xForNeu);
-      } else {
-        this.layers[i] = new Layer(neuForLayer[i], neuForLayer[i-1]);
-      }
+  public Net(int x, int y) {
 
-      if (neuForLayer[i] > max) {
-        max = neuForLayer[i];
-      }
-    }
-
-    this.results = new float[max][layers.length];
+    this.layerIn = new  LayerIn(x);
+    this.layerOut = new LayerOut(x, y);
+    
+    this.results = new float[2][];
+    this.results[0] = new float[x];
+    this.results[1] = new float[y];
   }
+  
+  public Net(int x, int y, int hidden) {
 
+    this.layerIn = new  LayerIn(x);
+    this.layerHi = new LayerHi[1];
+    this.layerHi[0] = new LayerHi(x, hidden);
+    this.layerOut = new LayerOut(hidden, y);
+    
+    this.results = new float[2][];
+    this.results[0] = new float[x];
+    this.results[1] = new float[hidden];
+    this.results[1] = new float[y];
+  }
+  
+  public Net(int x, int y, int hidden1, int hidden2) {
+
+    this.layerIn = new  LayerIn(x);
+    this.layerHi = new LayerHi[2];
+    this.layerHi[0] = new LayerHi(x, hidden1);
+    this.layerHi[0] = new LayerHi(hidden1, hidden2);
+    this.layerOut = new LayerOut(hidden2, y);
+    
+    this.results = new float[2][];
+    this.results[0] = new float[x];
+    this.results[1] = new float[hidden1];
+    this.results[1] = new float[hidden2];
+    this.results[1] = new float[y];
+  }
 
   //Da el resultado de la red al introducir los valores de entrada
   public float[] a(float[] x) {
-    float[] in = x;
     float[] a;
 
-    for (int i = 0; i < layers.length; i++) {
-      a = this.layers[i].a(in);
+    layerIn.a(x);
+    a = layerIn.getResults();
+    this.results[0] = a;
 
-      this.results[i] = this.layers[i].getResults();
-
-      in = a;
+    if (layerHi != null) {
+      for (int i = 0; i < layerHi.length; i++) {
+        layerHi[i].a(a);
+        a = layerHi[i].getResults();
+        this.results[i] = a;
+      }
     }
+    layerOut.a(a);
+    a = layerOut.getResults();
+    this.results[results.length -1] = a;
 
-    return in;
+    return a;
   }
 
 
-  public void learn(float[] x) {
+  public void learn() {
 
     //Para cada capa aprendemos con los resultados de la capa anterior
-    for (int i = 0; i < layers.length; i++) {
+    if (layerHi != null) {
+      layerHi[0].learn(layerIn.getResults());
 
-      if (i == 0) {
-        this.layers[i].learn(x);
-      } else {
-        this.layers[i].learn(layers[i-1].getResults());
+      for (int i = 1; i < layerHi.length; i++) {
+
+        layerHi[i].learn(layerHi[i-1].getResults());
       }
+
+      layerOut.learn(layerHi[layerHi.length -1].getResults());
+    } else {
+      layerOut.learn(layerIn.getResults());
     }
   }
 

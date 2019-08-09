@@ -1,13 +1,13 @@
-class Layer {
+class LayerOut {
 
   Neuron[] n;
   float[] results;
 
-  float lr = 0.08;
+  float lr = 0.1;
 
-  public Layer(int len, int x) {
-    this.n = new Neuron[len];
-    this.results = new float[len];
+  public LayerOut(int x, int y) {
+    this.n = new Neuron[y];
+    this.results = new float[y];
 
     for (int i = 0; i < this.n.length; i++) {
       n[i] = new Neuron(x);

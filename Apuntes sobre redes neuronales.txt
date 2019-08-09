@@ -29,3 +29,9 @@ número de neuronas de salida por el numero de neuronas de entrada:
 
 -Lo anteriormente mencionado en las formulas son aproximaciones, puede que una red de una entrada y una salida necesite una 
 docena de neuronas ocultas para poder resolver el sistema.
+
+-Aprendizaje supervisado: Pasas una tabla de aprendizaje con entradas y salidas ya conocidas. La red aprende a clasificar
+entradas a determinadas salidas.
+
+-Aprendizaje no supervisado: La red neuronal obtiene conocimiento solo con los datos de entrada, sin necesidad de explicar
+al sistema los resultados que queremos obtener.

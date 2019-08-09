@@ -26,7 +26,7 @@ void setup() {
   //Creamos la red con los parametros que deseamos.
   len = b.x[0].length;
   //Se inicializa con pesos aleatorios entre -0.5 y 0.5 (bias incluido)
-  r = new Net(neuFL, len);
+  r = new Net(2, 1);
 
   //Entrenamos la red.
   b.train(r);

@@ -4,8 +4,8 @@ int[] array2 = {4, 5, 6};
 int[] array3;
 
 void setup() {
-  
-  
+
+  println(array1[-1]);
 }
 
 void draw() {

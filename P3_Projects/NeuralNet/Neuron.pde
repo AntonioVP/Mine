@@ -5,8 +5,9 @@ class Neuron {
 
   float[] w;
 
-  float lr = 0.08;
-
+  float lr = 0.1;
+  
+  float lastResult;
   float outputError = 0.0;
 
 
@@ -19,6 +20,14 @@ class Neuron {
     this.wb = random(-0.5, 0.5);
   }
 
+  public Neuron(float[] initW) {
+    this.w = new float[initW.length -1];
+    this.wb = initW[0];
+    for (int i = 1; i < initW.length; i++) {
+      wb = initW[i];
+    }
+  }
+  
   //Funcion suma de las entradas segun sus pesos.
   private float in(float[] x) {
     float in = 0;
@@ -42,6 +51,8 @@ class Neuron {
   float a(float[] x) {
 
     float sig = this.g(this.in(x));
+    
+    this.lastResult = sig;
 
     return sig;
   }
