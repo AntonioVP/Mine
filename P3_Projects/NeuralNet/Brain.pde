@@ -112,9 +112,10 @@ class Brain { //<>// //<>//
           float a =  r.getResults()[l][j];
 
           if (i == 0) {
+            
+            //Sumatorio de pesos relacionados con la neurona J y las neuronas de una capa mayor K (donde K es la neura de la capa l+1) por el error de K
             float sum = 0.0;
 
-            //Hacemos el sumatorio de los pesos relacionados con la neurona actual J con la capa de un nivel mayor (K donde K es l+1) por el error de las neuronas de K
             //Sum(wjk * error(k))
             for (int k = 0; k < r.layerOut.n.length; k++) {
               sum += r.layerOut.n[k].w[j] * this.errors[l+1][k];
@@ -122,11 +123,12 @@ class Brain { //<>// //<>//
 
             this.errors[l][j] = a*(1.0 - a)*(sum);
             r.layerHi[l].n[j].outputError = this.errors[l][i];
+            
           } else {
-            //Para cada neurona desde la penultima a la primera
+            
+            //Sumatorio de pesos relacionados con la neurona J y las neuronas de una capa mayor K (donde K es la neura de la capa l+1) por el error de K
             float sum = 0.0;
 
-            //Hacemos el sumatorio de los pesos relacionados con la neurona actual J con la capa de un nivel mayor (K donde K es l+1) por el error de las neuronas de K
             //Sum(wjk * error(k))
             for (int k = 0; k < r.layerHi[l+1].n.length; k++) {
               sum += r.layerHi[l+1].n[k].w[j] * this.errors[l+1][k];
