@@ -2,15 +2,14 @@ class LayerOut {
 
   Neuron[] n;
   float[] results;
+  
 
-  float lr = 0.1;
-
-  public LayerOut(int x, int y) {
+  public LayerOut(int x, int y, float learningRate, boolean lineal) {
     this.n = new Neuron[y];
     this.results = new float[y];
 
     for (int i = 0; i < this.n.length; i++) {
-      n[i] = new Neuron(x);
+      n[i] = new Neuron(x, learningRate, lineal);
     }
   }
 

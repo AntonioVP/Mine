@@ -5,46 +5,48 @@ class Net {
   LayerOut layerOut;
   float[][] results;
 
-  float lr = 0.1; //Aun no esta implementado que la red entera adopte este factor de aprendizaje.
+  boolean l;
+  
 
-
-
-  public Net(int x, int y) {
+  public Net(int x, int y, float learningRate, boolean lineal) {
 
     this.layerIn = new  LayerIn(x);
-    this.layerOut = new LayerOut(x, y);
+    this.layerOut = new LayerOut(x, y, learningRate, lineal);
     
     this.results = new float[2][];
     this.results[0] = new float[x];
     this.results[1] = new float[y];
+    this.l = lineal;
   }
   
-  public Net(int x, int y, int hidden) {
+  public Net(int x, int y, int hidden, float learningRate, boolean lineal) {
 
     this.layerIn = new  LayerIn(x);
     this.layerHi = new LayerHi[1];
-    this.layerHi[0] = new LayerHi(x, hidden);
-    this.layerOut = new LayerOut(hidden, y);
+    this.layerHi[0] = new LayerHi(x, hidden, learningRate, lineal);
+    this.layerOut = new LayerOut(hidden, y, learningRate, lineal);
     
     this.results = new float[2][];
     this.results[0] = new float[x];
     this.results[1] = new float[hidden];
     this.results[1] = new float[y];
+    this.l = lineal;
   }
   
-  public Net(int x, int y, int hidden1, int hidden2) {
+  public Net(int x, int y, int hidden1, int hidden2, float learningRate, boolean lineal) {
 
     this.layerIn = new  LayerIn(x);
     this.layerHi = new LayerHi[2];
-    this.layerHi[0] = new LayerHi(x, hidden1);
-    this.layerHi[0] = new LayerHi(hidden1, hidden2);
-    this.layerOut = new LayerOut(hidden2, y);
+    this.layerHi[0] = new LayerHi(x, hidden1, learningRate, lineal);
+    this.layerHi[0] = new LayerHi(hidden1, hidden2, learningRate, lineal);
+    this.layerOut = new LayerOut(hidden2, y, learningRate, lineal);
     
     this.results = new float[2][];
     this.results[0] = new float[x];
     this.results[1] = new float[hidden1];
     this.results[1] = new float[hidden2];
     this.results[1] = new float[y];
+    this.l = lineal;
   }
 
   //Da el resultado de la red al introducir los valores de entrada

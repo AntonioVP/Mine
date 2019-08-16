@@ -96,8 +96,13 @@ class Brain { //<>// //<>//
 
     for (int i = 0; i < r.layerOut.n.length; i++) {
       float a = r.getResults()[l][i];
-      this.errors[l][i] = a*(1.0 - a)*(y[i] - a);
-      r.layerOut.n[i].outputError = this.errors[l][i];
+      if (r.l) {
+        this.errors[l][i] = sqrt(y[i]*y[i] - a*a);
+      } else {
+        this.errors[l][i] = a*(1.0 - a)*(y[i] - a);
+
+        r.layerOut.n[i].outputError = this.errors[l][i];
+      }
     }
 
     if (r.layerHi != null) {
@@ -111,32 +116,27 @@ class Brain { //<>// //<>//
 
           float a =  r.getResults()[l][j];
 
-          if (i == 0) {
-            
-            //Sumatorio de pesos relacionados con la neurona J y las neuronas de una capa mayor K (donde K es la neura de la capa l+1) por el error de K
-            float sum = 0.0;
 
-            //Sum(wjk * error(k))
+          //Sumatorio de pesos relacionados con la neurona J y las neuronas de una capa mayor K (donde K es la neura de la capa l+1) por el error de K
+          float sum = 0.0;
+
+          //Sum(wjk * error(k))
+          if (i == 0) {
             for (int k = 0; k < r.layerOut.n.length; k++) {
               sum += r.layerOut.n[k].w[j] * this.errors[l+1][k];
             }
-
-            this.errors[l][j] = a*(1.0 - a)*(sum);
-            r.layerHi[l].n[j].outputError = this.errors[l][i];
-            
           } else {
-            
-            //Sumatorio de pesos relacionados con la neurona J y las neuronas de una capa mayor K (donde K es la neura de la capa l+1) por el error de K
-            float sum = 0.0;
-
-            //Sum(wjk * error(k))
             for (int k = 0; k < r.layerHi[l+1].n.length; k++) {
               sum += r.layerHi[l+1].n[k].w[j] * this.errors[l+1][k];
             }
-
-            this.errors[l][j] = a*(1.0 - a)*(sum);
-            r.layerHi[l].n[j].outputError = this.errors[l][i];
           }
+
+          if (r.l) {
+            this.errors[l][j] = sum;
+          } else {
+            this.errors[l][j] = a*(1.0 - a)*(sum);
+          }
+          r.layerHi[l].n[j].outputError = this.errors[l][i];
         }
       }
     }

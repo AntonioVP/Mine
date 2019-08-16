@@ -6,18 +6,22 @@ class Neuron {
   float[] w;
 
   float lr = 0.1;
-  
+  boolean l;
+
   float lastResult;
   float outputError = 0.0;
 
 
-  public Neuron(int x) {
+  public Neuron(int x, float learningRate, boolean lineal) {
     float[] w = new float[x];
     for (int i = 0; i < x; i++) {
       w[i] = random(-0.5, 0.5);
     }
     this.w = w;
     this.wb = random(-0.5, 0.5);
+
+    this.lr = learningRate;
+    this.l = lineal;
   }
 
   public Neuron(float[] initW) {
@@ -27,7 +31,7 @@ class Neuron {
       wb = initW[i];
     }
   }
-  
+
   //Funcion suma de las entradas segun sus pesos.
   private float in(float[] x) {
     float in = 0;
@@ -44,17 +48,22 @@ class Neuron {
 
   //Funcion de activacion sigmoide. La derivada de la funcion sigmoide es:   g'(in) = g(in)*(1 - g(in)).
   float g(float in) {
-    return 1.0 / (1.0 + exp(-1.0 * in));
-  }
+
+    if (l){
+      return in;
+    }else
+      return 1.0 / (1.0 + exp(-1.0 * in));
+      
+}
 
   //Esta funcion devuelve la salida de la neurona segun las entradas.
   float a(float[] x) {
 
-    float sig = this.g(this.in(x));
-    
-    this.lastResult = sig;
+    float a = this.g(this.in(x));
 
-    return sig;
+    this.lastResult = a;
+
+    return a;
   }
 
   public void learn(float[] res) {

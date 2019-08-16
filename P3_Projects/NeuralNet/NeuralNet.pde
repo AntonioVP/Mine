@@ -26,7 +26,7 @@ void setup() {
   //Creamos la red con los parametros que deseamos.
   len = b.x[0].length;
   //Se inicializa con pesos aleatorios entre -0.5 y 0.5 (bias incluido)
-  r = new Net(2, 1);
+  r = new Net(len, 1, 0.1, true);
 
   //Entrenamos la red.
   b.train(r);
@@ -36,7 +36,9 @@ void draw() {
 
   //Inicializo unas entradas aleatorias
   for (int i = 0; i < 2; i++) {
-    x[i] = (random(1)<0.5? 0: 1);
+    //x[i] = (random(1)<0.5? 0: 1);
+    
+    x[i] = int(random(0,10));
   }
 
   //Mostramos por pantalla cada cierto numero de frames

@@ -1,6 +1,7 @@
 class LayerIn {
 
   float[] results;
+  
 
   public LayerIn(int x) {
     this.results = new float[x];

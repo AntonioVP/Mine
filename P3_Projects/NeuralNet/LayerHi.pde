@@ -2,16 +2,14 @@ class LayerHi {
 
   Neuron[] n;
   float[] results;
+  
 
-  float lr = 0.1;
-
-  //Para una red nueva
-  public LayerHi(int x, int y) {
+  public LayerHi(int x, int y, float learningRate, boolean lineal) {
 
     n = new Neuron[y];
 
     for (int i = 0; i < y; i++) {
-      n[i] = new Neuron(x);
+      n[i] = new Neuron(x, learningRate, lineal);
     }
   }
 
