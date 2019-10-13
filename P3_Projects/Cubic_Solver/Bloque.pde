@@ -15,8 +15,8 @@ class Bloque {
 
 
   Bloque(PVector posi, int lvl) {
-    pos = posi;
-    nivel = lvl;
+    this.pos = posi;
+    this.nivel = lvl;
 
     crearVertices();
   }
