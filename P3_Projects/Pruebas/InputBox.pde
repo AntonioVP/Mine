@@ -8,7 +8,7 @@ class InputBox {
   Button box;
 
   InputBox(String id, int x, int y, int w, int h, int tam) {
-    box = new Button(id, x, y, w, h, color(255), "", tam);
+    box = new Button(id, x, y, w, h, color(255), tam);
     focus = false;
   }
   

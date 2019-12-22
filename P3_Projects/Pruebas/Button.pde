@@ -17,14 +17,14 @@ class Button {
     this.c = c;
   }
 
-  Button(String id, int x, int y, int w, int h, color c, String tx, int tamText) {
+  Button(String id, int x, int y, int w, int h, color c, int tamText) {
     this.id = id;
     this.x = x;
     this.y = -y;
     this.w = w;
     this.h = h;
     this.c = c;
-    this.t = new Text(tx, x, y, tamText);
+    this.t = new Text(this.id, x, y, tamText);
   }
 
   Button(String id, int x, int y, int w, color c) {
@@ -35,15 +35,9 @@ class Button {
     this.h = w;
     this.c = c;
   }
-
-  Button(String id, int x, int y, int w, color c, String tx, int tamText) {
-    this.id = id;
-    this.x = x;
-    this.y = -y;
-    this.w = w;
-    this.h = w;
-    this.c = c;
-    this.t = new Text(tx, x, y, tamText);
+  
+  void t(String txt){
+    this.t.tx = txt;
   }
 
   boolean hit(int mX, int mY) {

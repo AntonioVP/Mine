@@ -35,7 +35,7 @@ void setup() {
   rectMode(CENTER);
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
-  //surface.setTitle("Neural Net");
+  surface.setTitle("Neural Net");
   //selectFolder("Select a folder to process:", "folderSelected");
 
   //Inicializacion de los auxiliares
@@ -48,14 +48,14 @@ void setup() {
   color c2 = color(255, 150, 0);
   color c3 = color(255);
 
-  b1 = new Button("clasificacion", 0, 100, 160, 75, c1, "Clasificacion", 32);
-  b2 = new Button("aritmetica", 0, -100, 160, 75, c2, "Aritmetica", 32);
-  b3 = new Button("volver", 0, -175, 50, 20, c3, "Volver", 20);
+  b1 = new Button("b1", 0, 100, 160, 75, c1, 32);
+  b2 = new Button("b2", 0, -100, 160, 75, c2, 32);
+  b3 = new Button("b3", 0, -175, 50, 20, c3, 20);
 
-  b4 = new Button("aumentaX", -75, 125, 20, 10, c3, "→", 20);
-  b5 = new Button("disminuyeX", -125, 125, 20, 10, c3, "←", 20);
-  b6 = new Button("aumentaY", 125, 125, 20, 10, c3, "→", 20);
-  b7 = new Button("disminuyeY", 75, 125, 20, 10, c3, "←", 20);
+  b4 = new Button("►", -75, 125, 20, 10, c3, 20);
+  b5 = new Button("◄", -125, 125, 20, 10, c3, 20);
+  b6 = new Button("►", 125, 125, 20, 10, c3, 20);
+  b7 = new Button("◄", 75, 125, 20, 10, c3, 20);
 
   //Titulos y textos
   title1 = new Text("Entradas:", -100, 175, 20);
@@ -74,29 +74,35 @@ void draw() {
   translate(width/2, height/2);
 
   dibujaVentana();
-
-
-  //if (mouseX < 50) {
-  //  cursor(WAIT);
-  //} else {
-  //  cursor(TEXT);
-  //}
 }
 
 void dibujaVentana() {
 
-  //Ventana inicial donde se elige la modalidad de la red: aritmetica o clasificacion
+  //Ventana inicial donde se crea una nueva red o se carga una existente.
   if (ventana == 0) {
     //Botones
+    b1.t("Nueva red");
+    b2.t("Cargar red");
+    b1.showAll();
+    b2.showAll();
+  }
+
+  //Ventana Nueva red donde se elige la modalidad de la red: aritmetica o clasificacion
+  if (ventana == 1) {
+    //Botones
+    b1.t("Lineal");
+    b2.t("Clasificación");
     b1.showAll();
     b2.showAll();
   }
 
   //Obtener valores para la Red
-  if (ventana == 1) {
+  if (ventana == 2) {
 
     //Imagen de background
     img_red.show();
+
+    b3.t("Volver");
 
     //Botones
     b3.showAll();
@@ -117,8 +123,24 @@ void dibujaVentana() {
     //Imagen de primer plano
   }
 
-  //Tabla de aprendizaje?
-  if (ventana == 2) {
+  //Proceso de aprendizaje para la nueva red
+  if (ventana == 3) {
+    fill(0, 0, 0, 255*sin(frameCount/5));
+    textSize(35);
+    text("Aprendiendo...", 0, 0);
+    //100 ciclos de ejecucion
+    //Mirar el error, para si ya lo hemos alcanzado.
+  }
+
+  if (ventana == 4) {
+    fill(0, 0, 0, 255*sin(frameCount/5));
+    textSize(35);
+    text("Cargando...", 0, 0);
+    //100 ciclos de ejecucion
+  }
+
+  if (ventana == 5) {
+    //Mostrar como funciona la red
   }
 }
 
@@ -131,7 +153,20 @@ void mousePressed() {
   if (ventana == 0) {
     //Boton 1
     if (b1.hit(mouseX, mouseY)) {
-      b1.c = color(100, 100, 255);
+      b1.c = color(100, 205, 100);
+    }
+
+    //Boton 2
+    if (b2.hit(mouseX, mouseY)) {
+      b2.c = color(255, 100, 0);
+    }
+  }
+
+  //Ventana 1
+  if (ventana == 1) {
+    //Boton 1
+    if (b1.hit(mouseX, mouseY)) {
+      b1.c = color(100, 205, 100);
       cla = true;
     }
 
@@ -142,8 +177,8 @@ void mousePressed() {
     }
   }
 
-  //Ventana 1
-  if (ventana == 1) {
+  //Ventana 2
+  if (ventana == 2) {
 
     //Boton 3
     if (b3.hit(mouseX, mouseY)) {
@@ -163,22 +198,42 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  b1.c = color(150, 150, 255);
+  b1.c = color(150, 255, 150);
   b2.c = color(255, 150, 0);
   b3.c = color(255);
   b4.c = color(255);
   b5.c = color(255);
 
+  boolean done = false;
+
   //Ventana 0
   if (ventana == 0) {
-    //Boton 1 y 2
+    //Boton 1
     if (b1.hit(mouseX, mouseY) || b2.hit(mouseX, mouseY)) {
       ventana = 1;
     }
+
+    //Boton 2
+    if (b2.hit(mouseX, mouseY) || b2.hit(mouseX, mouseY)) {
+      ventana = 4;
+    }
+
+    done = true;
   }
 
   //Ventana 1
-  if (ventana == 1) {
+  if (ventana == 1 && !done) {
+    //Boton 1 y 2
+    if (b1.hit(mouseX, mouseY) || b2.hit(mouseX, mouseY)) {
+      ventana = 2;
+      //Tipo de red: lineal o clasificacion
+    }
+
+    done = true;
+  }
+
+  //Ventana 2
+  if (ventana == 2 && !done) {
     //Boton 3
     if (b3.hit(mouseX, mouseY)) {
       ventana = 0;
@@ -211,5 +266,7 @@ void mouseReleased() {
       if (number_y > 1) number_y--;
       text_y.tx = "" + number_y;
     }
+
+    done = true;
   }
 }
