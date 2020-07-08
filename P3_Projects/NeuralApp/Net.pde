@@ -1,15 +1,18 @@
 class Net {
 
+  String name;
   LayerIn layerIn;
-  LayerHi[] layerHi;
+  LayerHide[] layerHi;
   LayerOut layerOut;
   float[][] results;
 
   boolean l;
   
 
-  public Net(int x, int y, float learningRate, boolean lineal) {
-
+  public Net(String name, int x, int y, float learningRate, boolean lineal) {
+    
+    this.name = name;
+    
     this.layerIn = new  LayerIn(x);
     this.layerOut = new LayerOut(x, y, learningRate, lineal);
     
@@ -19,11 +22,13 @@ class Net {
     this.l = lineal;
   }
   
-  public Net(int x, int y, int hidden, float learningRate, boolean lineal) {
-
+  public Net(String name, int x, int y, int hidden, float learningRate, boolean lineal) {
+    
+    this.name = name;
+    
     this.layerIn = new  LayerIn(x);
-    this.layerHi = new LayerHi[1];
-    this.layerHi[0] = new LayerHi(x, hidden, learningRate, lineal);
+    this.layerHi = new LayerHide[1];
+    this.layerHi[0] = new LayerHide(x, hidden, learningRate, lineal);
     this.layerOut = new LayerOut(hidden, y, learningRate, lineal);
     
     this.results = new float[2][];
@@ -33,12 +38,14 @@ class Net {
     this.l = lineal;
   }
   
-  public Net(int x, int y, int hidden1, int hidden2, float learningRate, boolean lineal) {
-
+  public Net(String name, int x, int y, int hidden1, int hidden2, float learningRate, boolean lineal) {
+    
+    this.name = name;
+    
     this.layerIn = new  LayerIn(x);
-    this.layerHi = new LayerHi[2];
-    this.layerHi[0] = new LayerHi(x, hidden1, learningRate, lineal);
-    this.layerHi[0] = new LayerHi(hidden1, hidden2, learningRate, lineal);
+    this.layerHi = new LayerHide[2];
+    this.layerHi[0] = new LayerHide(x, hidden1, learningRate, lineal);
+    this.layerHi[0] = new LayerHide(hidden1, hidden2, learningRate, lineal);
     this.layerOut = new LayerOut(hidden2, y, learningRate, lineal);
     
     this.results = new float[2][];

@@ -1,61 +1,61 @@
 /*
 String text;
-
-float cont;
-
-//Inilizacion de la variables para la red neuronal
-String[] xBrain;
-String[] yBrain;
-Brain b;
-
-int len;
-int[] neuFL = {1};
-Net r;
-
-float[] x = new float[2];
-
-void setup() {
-  size(1200, 300);
-
-  cont = 10;
-
-  //Cargamos los datos de los txt.
-  xBrain = loadStrings("listX.txt");
-  yBrain = loadStrings("listY.txt");
-  b = new Brain(xBrain, yBrain);
-
-  //Creamos la red con los parametros que deseamos.
-  len = b.x[0].length;
-  //Se inicializa con pesos aleatorios entre -0.5 y 0.5 (bias incluido)
-  r = new Net(len, 1, 0.1, false);
-
-  //Entrenamos la red.
-  b.train(r);
-}
-
-void draw() {
-
-  //Inicializo unas entradas aleatorias
-  for (int i = 0; i < 2; i++) {
-    x[i] = (random(1)<0.5? 0: 1);
-    
-    //x[i] = int(random(0,10));
-  }
-
-  //Mostramos por pantalla cada cierto numero de frames
-  if (cont == frameCount) {
-    cont += 60;
-
-    background(255);
-    fill(0);
-    textSize(32);
-    text = ("Entradas: " + x[0] + " , " + x[1]);
-    text(text, 10, 50);
-    text = ("Objetivo: " + b.output(x)[0] + "           Salida: " + r.a(x)[0]);
-    text(text, 10, 100);
-  }
-}
-*/
+ 
+ float cont;
+ 
+ //Inilizacion de la variables para la red neuronal
+ String[] xBrain;
+ String[] yBrain;
+ Brain b;
+ 
+ int len;
+ int[] neuFL = {1};
+ Net r;
+ 
+ float[] x = new float[2];
+ 
+ void setup() {
+ size(1200, 300);
+ 
+ cont = 10;
+ 
+ //Cargamos los datos de los txt.
+ xBrain = loadStrings("listX.txt");
+ yBrain = loadStrings("listY.txt");
+ b = new Brain(xBrain, yBrain);
+ 
+ //Creamos la red con los parametros que deseamos.
+ len = b.x[0].length;
+ //Se inicializa con pesos aleatorios entre -0.5 y 0.5 (bias incluido)
+ r = new Net(len, 1, 0.1, false);
+ 
+ //Entrenamos la red.
+ b.train(r);
+ }
+ 
+ void draw() {
+ 
+ //Inicializo unas entradas aleatorias
+ for (int i = 0; i < 2; i++) {
+ x[i] = (random(1)<0.5? 0: 1);
+ 
+ //x[i] = int(random(0,10));
+ }
+ 
+ //Mostramos por pantalla cada cierto numero de frames
+ if (cont == frameCount) {
+ cont += 60;
+ 
+ background(255);
+ fill(0);
+ textSize(32);
+ text = ("Entradas: " + x[0] + " , " + x[1]);
+ text(text, 10, 50);
+ text = ("Objetivo: " + b.output(x)[0] + "           Salida: " + r.a(x)[0]);
+ text(text, 10, 100);
+ }
+ }
+ */
 
 //Auxiliar
 int ventana;
@@ -99,7 +99,7 @@ void setup() {
   //selectFolder("Select a folder to process:", "folderSelected");
 
   //Inicializacion de los auxiliares
-  ventana = 2;
+  ventana = 0;
   cla = false;
   str_number = "x";
 
@@ -120,14 +120,14 @@ void setup() {
   b8 = new Button("b8", 75, -175, 50, 20, c3, 20);
 
   //Titulos y textos
-  title1 = new Text("Entradas:", -100, 175, 20);
-  title2 = new Text("Salidas:", 100, 175, 20);
+  title1 = new Text("Entradas:", -100, -105, 20);
+  title2 = new Text("Salidas:", 100, -105, 20);
 
   text_x = new Text("" + number_x, -100, 150, 20);
   text_y = new Text("" + number_y, 100, 150, 20);
 
   //Imagenes
-  img_red = new Imagen("red", loadImage("red.png"), 0, 0, 250, 250);
+  img_red = new Imagen("red", loadImage("images/red.png"), 0, 0, 250, 250);
 }
 
 void draw() {
@@ -163,7 +163,7 @@ void dibujaVentana() {
 
     //Imagen de background
     img_red.show();
-    
+
     b8.t("Continuar");
     b3.t("Cancelar");
 
@@ -183,7 +183,6 @@ void dibujaVentana() {
     //Para las salidas
     title2.show();
     text_y.show();
-
   }
 
   //Proceso de aprendizaje para la nueva red
@@ -199,11 +198,12 @@ void dibujaVentana() {
     fill(0, 0, 0, 255*sin(frameCount/5));
     textSize(35);
     text("Cargando...", 0, 0);
-    //TODO: 100 ciclos de ejecucion
   }
 
   if (ventana == 5) {
-    //Mostrar como funciona la red
+    //Mostrar la red y su funcionamiento. Dar opcion de entrenar
+    
+    
     
   }
 }
@@ -243,12 +243,12 @@ void mousePressed() {
 
   //Ventana 2
   if (ventana == 2) {
-    
+
     //Boton 8 Continuar
-    if (b8.hit(mouseX, mouseY)){
+    if (b8.hit(mouseX, mouseY)) {
       b8.c = color(220);
     }
-    
+
     //Boton 3 Cancelar
     if (b3.hit(mouseX, mouseY)) {
       b3.c = color(220);
@@ -305,12 +305,12 @@ void mouseReleased() {
   //Ventana 2
   if (ventana == 2 && !done) {
     //Boton 8 Continuar
-    if (b8.hit(mouseX, mouseY)){
+    if (b8.hit(mouseX, mouseY)) {
       /*
       ventana = vista con red creada/cargada
-      */
+       */
     }
-    
+
     //Boton 3 Cancelar
     if (b3.hit(mouseX, mouseY)) {
       ventana = 0;

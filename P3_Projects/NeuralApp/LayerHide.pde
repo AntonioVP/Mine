@@ -1,10 +1,10 @@
-class LayerHi {
+class LayerHide {
 
   Neuron[] n;
   float[] results;
   
 
-  public LayerHi(int x, int y, float learningRate, boolean lineal) {
+  public LayerHide(int x, int y, float learningRate, boolean lineal) {
 
     n = new Neuron[y];
 
@@ -14,7 +14,7 @@ class LayerHi {
   }
 
   //Para una red ya existente
-  public LayerHi(float[][] y) {
+  public LayerHide(float[][] y) {
 
     n = new Neuron[y.length];
 
