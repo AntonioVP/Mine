@@ -58,12 +58,12 @@ class Brain { //<>// //<>//
   public void train(Net r) {
     float error = 1;
 
-    while (error > 0.003) {
+    while (error > 0.01) {
 
       //Entrenamos la red con la tabla de entrenamiento.
       for (int i = 0; i < x.length; i++) {
 
-        //Calculamos la salida de cada unidad y vamos propagando hacia adelante.
+        //Calculamos la salida de cada valor de entrenamiento y vamos propagando hacia adelante.
         r.a(x[i]);
 
         //Calculamos los errores de la red.

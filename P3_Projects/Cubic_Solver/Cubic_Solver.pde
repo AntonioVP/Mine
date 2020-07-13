@@ -4,7 +4,7 @@ float rotX = -0.25;
 float rotY = 0.5;
 float lejania = -tam;
 
-int nivel = 2;
+int nivel = 3;
 
 Cubo cubo;
 
@@ -18,17 +18,12 @@ void draw() {
   background(255);
   translate(width/2, height/2, lejania);
 
+  rotateX(PI/2);
+
   pushMatrix();
 
   if (mousePressed) {
-    rotX += -(mouseY - pmouseY)*vel;
-    rotY += (mouseX - pmouseX)*vel;
-
-    rotateX(rotX);
-    rotateY(rotY);
-  } else {
-    rotateX(rotX);
-    rotateY(rotY);
+    cubo.moveBlock();
   }
 
   cubo.show();
@@ -62,10 +57,10 @@ void keyPressed() {
     cubo.move(Move.Bp);
   }
 
-
-
-
   if (key == 'r') {
     cubo = new Cubo(nivel);
   }
+}
+
+void MoverCubo() {
 }

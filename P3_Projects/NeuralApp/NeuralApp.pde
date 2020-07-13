@@ -1,61 +1,11 @@
-/*
-String text;
- 
- float cont;
- 
- //Inilizacion de la variables para la red neuronal
- String[] xBrain;
- String[] yBrain;
- Brain b;
- 
- int len;
- int[] neuFL = {1};
- Net r;
- 
- float[] x = new float[2];
- 
- void setup() {
- size(1200, 300);
- 
- cont = 10;
- 
- //Cargamos los datos de los txt.
- xBrain = loadStrings("listX.txt");
- yBrain = loadStrings("listY.txt");
- b = new Brain(xBrain, yBrain);
- 
- //Creamos la red con los parametros que deseamos.
- len = b.x[0].length;
- //Se inicializa con pesos aleatorios entre -0.5 y 0.5 (bias incluido)
- r = new Net(len, 1, 0.1, false);
- 
- //Entrenamos la red.
- b.train(r);
- }
- 
- void draw() {
- 
- //Inicializo unas entradas aleatorias
- for (int i = 0; i < 2; i++) {
- x[i] = (random(1)<0.5? 0: 1);
- 
- //x[i] = int(random(0,10));
- }
- 
- //Mostramos por pantalla cada cierto numero de frames
- if (cont == frameCount) {
- cont += 60;
- 
- background(255);
- fill(0);
- textSize(32);
- text = ("Entradas: " + x[0] + " , " + x[1]);
- text(text, 10, 50);
- text = ("Objetivo: " + b.output(x)[0] + "           Salida: " + r.a(x)[0]);
- text(text, 10, 100);
- }
- }
- */
+//Inilizacion de la variables para la red neuronal
+String[] xBrain;
+String[] yBrain;
+Brain b;
+
+int len;
+int[] neuFL = {1};
+Net r;
 
 //Auxiliar
 int ventana;
@@ -91,13 +41,16 @@ Imagen img_red;
 
 void setup() {
 
-  size(400, 400);
+  size(800, 600);
   rectMode(CENTER);
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   surface.setTitle("Neural Net");
+  
   //selectFolder("Select a folder to process:", "folderSelected");
-
+  
+  //Inicializacion de red o de brain?
+  
   //Inicializacion de los auxiliares
   ventana = 0;
   cla = false;
@@ -110,14 +63,14 @@ void setup() {
 
   b1 = new Button("b1", 0, 100, 160, 75, c1, 32);
   b2 = new Button("b2", 0, -100, 160, 75, c2, 32);
-  b3 = new Button("b3", -75, -175, 50, 20, c3, 20);
+  b3 = new Button("b3", 75, -175, 50, 20, c3, 20);
 
   b4 = new Button("►", -75, 125, 20, 10, c3, 20);
   b5 = new Button("◄", -125, 125, 20, 10, c3, 20);
   b6 = new Button("►", 125, 125, 20, 10, c3, 20);
   b7 = new Button("◄", 75, 125, 20, 10, c3, 20);
 
-  b8 = new Button("b8", 75, -175, 50, 20, c3, 20);
+  b8 = new Button("b8", -75, -175, 50, 20, c3, 20);
 
   //Titulos y textos
   title1 = new Text("Entradas:", -100, -105, 20);
@@ -187,11 +140,6 @@ void dibujaVentana() {
 
   //Proceso de aprendizaje para la nueva red
   if (ventana == 3) {
-    fill(0, 0, 0, 255*sin(frameCount/5));
-    textSize(35);
-    text("Aprendiendo...", 0, 0);
-    //100 ciclos de ejecucion
-    //Mirar el error, parar si ya lo hemos alcanzado.
   }
 
   if (ventana == 4) {
@@ -201,14 +149,10 @@ void dibujaVentana() {
   }
 
   if (ventana == 5) {
-    //Mostrar la red y su funcionamiento. Dar opcion de entrenar
-    
-    
-    
   }
-}
 
-void keyPressed() {
+  if (ventana == 6) {
+  }
 }
 
 void mousePressed() {

@@ -49,4 +49,16 @@ class Cubo {
       }
     }
   }
+  
+  //-----------------------------------------------------
+  void moveBlock(){
+    
+    for(Bloque[][] b2 : bloques){
+      for(Bloque[] b1 : b2){
+        for(Bloque b : b1){
+          b.girar();
+        }
+      }
+    }
+  }
 }

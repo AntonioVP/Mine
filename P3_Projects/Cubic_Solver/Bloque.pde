@@ -13,6 +13,10 @@ class Bloque {
   float[] siete =   new float[3];
   float[] ocho =   new float[3];
 
+  float[][] vertices = {uno, dos, tres, cuatro, cinco, seis, siete, ocho};
+
+  float desAlfa;
+  float desBeta;
 
   Bloque(PVector posi, int lvl) {
     this.pos = posi;
@@ -249,5 +253,35 @@ class Bloque {
       ocho[0] = -ochoC[1];
       ocho[1] = ochoC[0];
     }
+  }
+
+  void girar() {
+
+    uno = updateVertice(uno);
+    dos = updateVertice(dos);
+    tres = updateVertice(tres);
+    cuatro = updateVertice(cuatro);
+    cinco = updateVertice(cinco);
+    seis = updateVertice(seis);
+    siete = updateVertice(siete);
+    ocho = updateVertice(ocho);
+  }
+
+  float[] updateVertice(float[] viejo) {
+
+    desAlfa = -(mouseX - pmouseX)*vel;
+    desBeta = -(mouseY - pmouseY)*vel;
+
+    PVector p1 = new PVector(viejo[0], viejo[1], viejo[2]);
+
+    p1.rotate(desAlfa);
+
+    PVector p2 = new PVector(p1.y, p1.z);
+
+    p2.rotate(desBeta);
+
+    float[] vertice = {p1.x, p2.x, p2.y};
+
+    return vertice;
   }
 }
